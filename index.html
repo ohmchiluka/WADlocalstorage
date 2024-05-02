@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration details</title>
+</head>
+<style>
+    h1,h4,form{
+        align-items: center;
+        text-align: center;
+    }
+    h1{
+        margin-top: 100px;
+    }
+
+</style>
+<body>
+    <h1>Registration Form</h1>
+    <h4>Enter Details</h4>
+    <form action="#" id="form">
+        <label for="Name" >Name:</label><br>
+        <input type="text" placeholder="enter name" id="name"><br><br>
+        <label for="Email" >Email:</label><br>
+        <input type="email" placeholder="enter email" id="email"><br><br>
+        <label for="adress" >adress:</label><br>
+        <input type="text" placeholder="enter adress" id="adress"><br><br>
+        <button type="button" id="submit" onclick="savedata()" >Submit</button><br>
+        
+
+    </form>
+    <p id="para">
+
+    </p>
+</body>
+
+<script>
+
+    function savedata(){
+        let name,email,adress;
+        name=document.getElementById("name").value;
+        email=document.getElementById("email").value;
+        adress=document.getElementById("adress").value;
+        //alert(name);
+        //console.log(name+" /"    +email+" /"+adress)
+        //localStorage.setItem("name",name);
+        //localStorage.setItem("email",email);
+       // localStorage.setItem("adress",adress);
+
+        let array=new Array();
+        array=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+    
+        if (array.some((v)=>{
+            return v.email==email
+        })){
+            alert("Mail Already Used");
+        }
+        else{
+            array.push({
+                "name":name,"email":email,"adress":adress
+            })
+            localStorage.setItem("users",JSON.stringify(array));
+        }
+        document.getElementById("para").innerHTML=localStorage.getItem("users")
+
+    }
+    
+
+</script>
+</html>
